@@ -9,9 +9,9 @@
         이메일 형식을 확인해주세요.
       </span>
 
-      <input type="password" placeholder="API Key (Password)" formControlName="apiKey" />
+      <input type="password" placeholder="Password" formControlName="apiKey" />
 
-      <input type="password" placeholder="Confirm API Key" formControlName="confirmApiKey" />
+      <input type="password" placeholder="Confirm Password" formControlName="confirmApiKey" />
       <span class="error-msg" *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmApiKey')?.touched">
         비밀번호가 일치하지 않습니다.
       </span>
@@ -30,7 +30,7 @@
       <h1>로그인</h1>
 
       <input type="email" placeholder="Email" formControlName="email" />
-      <input type="password" placeholder="API Key (Password)" formControlName="apiKey" />
+      <input type="password" placeholder="Password" formControlName="apiKey" />
 
       <label class="terms-label">
         <input type="checkbox" formControlName="rememberMe" />

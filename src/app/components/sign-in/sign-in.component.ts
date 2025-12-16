@@ -71,7 +71,7 @@ export class SignInComponent implements OnInit {
         alert('로그인 성공!');
         this.router.navigate(['/browse']); // 메인으로 이동
       } else {
-        alert('로그인 실패: 이메일이나 API Key를 확인하세요.');
+        alert('로그인 실패: 이메일이나 비밀번호를 확인하세요.');
       }
     });
   }

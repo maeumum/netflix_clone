@@ -1,67 +1,68 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
-import {URLService} from '../../../util/movie/URL';
-import {BannerComponent} from '../../../views/home-main/banner.component';
-import {MovieRowComponent} from '../../../views/home-main/movie-row.component';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { URLService } from '../../../util/movie/URL'; // 경로 확인 필요 (util/movie/URL.ts)
+import { Movie } from '../../../../models/types'; // 경로 확인 필요
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home-main.component.html',
+  selector: 'app-home-main',
   standalone: true,
-  styleUrls: ['./home-main.component.css'],
-  imports: [
-    BannerComponent,
-    MovieRowComponent
-  ]
+  imports: [CommonModule],
+  templateUrl: './home-main.component.html',
+  styleUrls: ['./home-main.component.css']
 })
+export class HomeMainComponent implements OnInit {
+  bannerMovie: Movie | null = null;
 
-export class HomeMainComponent implements OnInit, OnDestroy {
-  faSearch = faSearch;
-  faUser = faUser;
+  popularMovies: Movie[] = [];
+  nowPlayingMovies: Movie[] = [];
+  actionMovies: Movie[] = [];
+  animationMovies: Movie[] = [];
 
-  apiKey: string = localStorage.getItem('TMDb-Key') || '';
-  featuredMovie: any = null;
-  popularMoviesUrl: string = '';
-  newReleasesUrl: string = '';
-  actionMoviesUrl: string = '';
-  comedyMoviesUrl: string = '';
-  horrorMoviesUrl: string = '';
-
-  private scrollListener: any;
+  private apiKey = '';
 
   constructor(
+    private http: HttpClient,
     private urlService: URLService
-  ) {
-    this.popularMoviesUrl = urlService.getURL4PopularMovies(this.apiKey);
-    this.newReleasesUrl = urlService.getURL4ReleaseMovies(this.apiKey);
-    this.actionMoviesUrl = urlService.getURL4GenreMovies(this.apiKey, '28');
-    this.comedyMoviesUrl = urlService.getURL4GenreMovies(this.apiKey, '35');
-    this.horrorMoviesUrl = urlService.getURL4GenreMovies(this.apiKey, '27');
+  ) {}
+
+  ngOnInit(): void {
+    // 1. 로그인 때 저장한 API 키 가져오기
+    this.apiKey = localStorage.getItem('TMDb-Key') || '';
+
+    if (this.apiKey) {
+      this.loadMovies();
+    } else {
+      console.error('API Key not found in LocalStorage');
+    }
   }
 
-  ngOnInit() {
-    this.loadFeaturedMovie();
-    this.initializeScrollListener();
+  async loadMovies() {
+    // 1. 배너 영화 가져오기 (URLService의 axios 메소드 활용)
+    this.bannerMovie = await this.urlService.fetchFeaturedMovie(this.apiKey);
+
+    // 2. 영화 리스트 4개 호출 (URLService의 URL 생성 메소드 활용)
+
+    // (1) 인기 영화
+    this.http.get<any>(this.urlService.getURL4PopularMovies(this.apiKey))
+      .subscribe(res => this.popularMovies = res.results);
+
+    // (2) 최신 영화 (Release)
+    this.http.get<any>(this.urlService.getURL4ReleaseMovies(this.apiKey))
+      .subscribe(res => this.nowPlayingMovies = res.results);
+
+    // (3) 장르: 액션 (ID: 28)
+    this.http.get<any>(this.urlService.getURL4GenreMovies(this.apiKey, '28'))
+      .subscribe(res => this.actionMovies = res.results);
+
+    // (4) 장르: 애니메이션 (ID: 16)
+    this.http.get<any>(this.urlService.getURL4GenreMovies(this.apiKey, '16'))
+      .subscribe(res => this.animationMovies = res.results);
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('scroll', this.scrollListener);
-  }
-
-  private async loadFeaturedMovie() {
-    this.featuredMovie = await this.urlService.fetchFeaturedMovie(this.apiKey);
-  }
-
-  private initializeScrollListener() {
-    this.scrollListener = () => {
-      const header = document.querySelector('.app-header');
-      if (window.scrollY > 50) {
-        header?.classList.add('scrolled');
-      } else {
-        header?.classList.remove('scrolled');
-      }
-    };
-
-    window.addEventListener('scroll', this.scrollListener);
+  // HTML에서 사용할 이미지 경로 헬퍼
+  getImgUrl(path: string | undefined): string {
+    // path가 없으면 빈 문자열 반환 (undefined 체크)
+    return path ? this.urlService.getImageUrl(path) : '';
   }
 }
