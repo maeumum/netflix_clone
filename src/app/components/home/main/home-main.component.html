@@ -1,0 +1,10 @@
+<div class="home">
+  <app-banner [movie]="featuredMovie"></app-banner>
+
+  <app-movie-row title="인기 영화" [fetchUrl]="popularMoviesUrl"></app-movie-row>
+  <app-movie-row title="최신 영화" [fetchUrl]="newReleasesUrl"></app-movie-row>
+  <app-movie-row title="액션 영화" [fetchUrl]="actionMoviesUrl"></app-movie-row>
+
+  <app-movie-row title="코미디 영화" [fetchUrl]="comedyMoviesUrl"></app-movie-row>
+  <app-movie-row title="공포 영화" [fetchUrl]="horrorMoviesUrl"></app-movie-row>
+</div>

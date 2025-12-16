@@ -1,0 +1,20 @@
+<div class="wishlist-container" style="padding: 80px 20px;">
+  <h2>내가 찜한 콘텐츠</h2>
+
+  <div *ngIf="wishlist.length === 0" class="empty-message">
+    <p>아직 찜한 콘텐츠가 없습니다. 마음에 드는 영화를 담아보세요!</p>
+  </div>
+
+  <div *ngIf="wishlist.length > 0" class="movie-grid">
+    <div *ngFor="let movie of wishlist" class="movie-card" (click)="openDetail(movie)">
+      <img [src]="getImageUrl(movie.poster_path)" [alt]="movie.title">
+      <div class="movie-title">{{ movie.title }}</div>
+    </div>
+  </div>
+
+  <app-movie-detail-modal
+    *ngIf="selectedMovie"
+    [movie]="selectedMovie"
+    (onClose)="closeDetail()">
+  </app-movie-detail-modal>
+</div>

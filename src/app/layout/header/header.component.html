@@ -1,0 +1,35 @@
+<header class="app-header" [class.scrolled]="isScrolled">
+  <div class="header-container">
+    <div class="left-section">
+      <a routerLink="/browse" class="logo">NETFLIX</a>
+      <nav>
+        <a routerLink="/browse" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">홈</a>
+        <a routerLink="/browse/popular" routerLinkActive="active">대세 콘텐츠</a>
+        <a routerLink="/browse/wishlist" routerLinkActive="active">내가 찜한 콘텐츠</a>
+      </nav>
+    </div>
+
+    <div class="right-section">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="제목, 사람, 장르"
+          [(ngModel)]="searchTerm"
+          (keyup.enter)="onSearch()"
+        />
+      </div>
+
+      <div class="profile-container" (click)="toggleDropdown()">
+        <div class="profile-icon">👤</div>
+        <span class="caret">▼</span>
+
+        <div class="dropdown-menu" *ngIf="showDropdown">
+          <div class="menu-item">계정 정보</div>
+          <div class="menu-item" (click)="logout()">로그아웃</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>

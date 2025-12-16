@@ -1,0 +1,32 @@
+<div class="movie-grid" #gridContainer>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading movies...</p>
+  </div>
+
+  <div *ngIf="!isLoading" [class]="['grid-container', currentView]">
+    <div *ngFor="let movieGroup of visibleMovieGroups; let i = index"
+         [class]="['movie-row', { 'full': movieGroup.length === rowSize }]">
+
+      <div *ngFor="let movie of movieGroup"
+           class="movie-card"
+           [class.wishlist-active]="isInWishlist(movie.id)"
+           (click)="toggleWishlist(movie)">
+        <img [src]="getImageUrl(movie.poster_path)"
+             [alt]="movie.title">
+
+        <div class="movie-title">{{ movie.title }}</div>
+
+        <div *ngIf="isInWishlist(movie.id)" class="wishlist-badge">❤️</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination" *ngIf="!isLoading && totalPages > 1">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">&lt; 이전</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">다음 &gt;</button>
+  </div>
+
+</div>

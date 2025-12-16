@@ -1,0 +1,24 @@
+<header class="banner" [style.backgroundImage]="backdropStyle">
+  <div class="banner__contents">
+    <h1 class="banner__title">
+      {{ movie?.title || 'Loading...' }}
+    </h1>
+
+    <div class="banner__buttons">
+      <button class="banner__button">재생</button>
+      <button class="banner__button" (click)="openDetail()">상세 정보</button>
+    </div>
+
+    <h1 class="banner__description">
+      {{ truncate(movie?.overview || '', 150) }}
+    </h1>
+  </div>
+
+  <div class="banner--fadeBottom"></div>
+</header>
+
+<app-movie-detail-modal
+  *ngIf="showModal && movie"
+  [movie]="movie"
+  (onClose)="closeDetail()">
+</app-movie-detail-modal>

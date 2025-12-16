@@ -1,0 +1,53 @@
+<div class="container" [class.active]="!isLoginMode">
+
+  <div class="form-container sign-up-container">
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+      <h1>회원가입</h1>
+      <input type="email" placeholder="Email" formControlName="email" />
+      <span *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error">
+        유효한 이메일 형식이 아닙니다.
+      </span>
+
+      <input type="password" placeholder="API Key (Password)" formControlName="apiKey" />
+      <input type="password" placeholder="Confirm API Key" formControlName="confirmApiKey" />
+      <span *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmApiKey')?.touched" class="error">
+        비밀번호가 일치하지 않습니다.
+      </span>
+
+      <label>
+        <input type="checkbox" formControlName="agreeTerms" /> 필수 약관에 동의합니다.
+      </label>
+
+      <button [disabled]="signupForm.invalid">회원가입</button>
+    </form>
+  </div>
+
+  <div class="form-container sign-in-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <h1>로그인</h1>
+      <input type="email" placeholder="Email" formControlName="email" />
+      <input type="password" placeholder="API Key (Password)" formControlName="apiKey" />
+
+      <label>
+        <input type="checkbox" formControlName="rememberMe" /> Remember Me
+      </label>
+
+      <button [disabled]="loginForm.invalid">로그인</button>
+    </form>
+  </div>
+
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>환영합니다!</h1>
+        <p>이미 계정이 있으신가요?</p>
+        <button class="ghost" (click)="toggleMode()">로그인 하러가기</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>안녕하세요!</h1>
+        <p>TMDB 서비스를 이용하려면 가입하세요.</p>
+        <button class="ghost" (click)="toggleMode()">회원가입 하러가기</button>
+      </div>
+    </div>
+  </div>
+</div>

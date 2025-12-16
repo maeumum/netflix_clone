@@ -1,0 +1,74 @@
+/* --- 로딩 스피너 --- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: white;
+}
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #E50914;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- 영화 카드 --- */
+.movie-card {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 4px;
+  overflow: hidden; /* 이미지가 커져도 카드 밖으로 안 나가게 하려면 제거하거나 조정 */
+}
+
+/* [요구사항] 호버 시 확대 */
+.movie-card:hover {
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.movie-title {
+  padding: 5px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #fff;
+}
+
+/* [요구사항] 추천된 영화 다른 디자인 적용 */
+.movie-card.wishlist-active {
+  border: 2px solid #E50914; /* 빨간 테두리 */
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.5); /* 빨간 그림자 */
+}
+
+.movie-card.wishlist-active img {
+  opacity: 0.8; /* 이미지를 살짝 어둡게 처리 */
+}
+
+.wishlist-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.8));
+}
+
+/* 그리드 레이아웃 관련 (기존 유지) */
+.grid-container { display: flex; flex-direction: column; gap: 20px; }
+.movie-row { display: flex; gap: 15px; justify-content: flex-start; }
+.pagination { display: flex; justify-content: center; gap: 20px; padding: 20px; color: white; }
+.pagination button { padding: 5px 15px; cursor: pointer; background: #333; color: white; border: none; border-radius: 4px; }
+.pagination button:disabled { opacity: 0.5; cursor: default; }

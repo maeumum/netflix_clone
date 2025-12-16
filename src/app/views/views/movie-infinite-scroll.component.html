@@ -1,0 +1,19 @@
+<div class="infinite-scroll-container">
+  <div class="movie-grid">
+    <div *ngFor="let movie of movies" class="movie-card" (click)="openDetail(movie)">
+      <img [src]="getImageUrl(movie.poster_path)" [alt]="movie.title">
+      <div class="movie-title">{{ movie.title }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading more movies...</p>
+  </div>
+</div>
+
+<app-movie-detail-modal
+  *ngIf="selectedMovie"
+  [movie]="selectedMovie"
+  (onClose)="closeDetail()">
+</app-movie-detail-modal>
