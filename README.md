@@ -1,30 +1,36 @@
-# 먼저 Angular를 설치해주세요!!
-npm install -g @angular/cli
+# 🎬 Netflix Clone (Angular)
 
-# AngularDemo
+Angular와 TMDB API를 사용하여 개발한 넷플릭스 클론(Netflix Clone) 웹 애플리케이션입니다.
+넷플릭스의 핵심 UI/UX인 메인 배너, 가로 스크롤 리스트, 반응형 디자인 등을 구현하였습니다.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+## 🔗 Demo (배포 링크)
+👉 **Live Demo:** [https://maeumum.github.io/netflix_clone/](https://maeumum.github.io/netflix_clone/)
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🛠 Tech Stack
+* **Framework:** Angular (v17+)
+* **Language:** TypeScript, HTML, CSS
+* **API:** TMDB (The Movie Database) API
+* **Deployment:** GitHub Pages
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## ✨ Features (주요 기능)
+* **회원가입/로그인 UI:** TMDB API Key를 입력하여 로그인하는 시뮬레이션
+* **홈 화면 (Home):**
+    * 랜덤 메인 배너 (Hero Section)
+    * 카테고리별 영화 리스트 (Popular, Now Playing, Action, Animation 등)
+    * 가로 스크롤 슬라이더 (Horizontal Scrolling)
+* **반응형 웹 (Responsive Design):** 데스크탑, 태블릿, 모바일 등 다양한 해상도 지원
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🚀 Installation & Setup (설치 및 실행)
 
-## Running unit tests
+이 프로젝트를 로컬 환경에서 실행하려면 **Node.js**와 **npm**이 설치되어 있어야 합니다.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 1. 프로젝트 클론 (Clone)
+```bash
+git clone [https://github.com/maeumum/netflix_clone.git](https://github.com/maeumum/netflix_clone.git)
+cd netflix_clone
